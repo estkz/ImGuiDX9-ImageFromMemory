@@ -49,9 +49,9 @@ if (single_creation) // This if-statement makes sure the Texture only gets creat
 ImGui::Image(eclipseLogo, image_size);
 ```
 
-Now these are all the lines of code we are going to be implementing into our menu. But firstly, let's open main.cpp!
+Now, let's take a look at all the lines of code that we'll be implementing into our menu. But before that, let's open main.cpp!
 
-Step 1. We must be sure we are running this project in Release -> X86 | Also, we must ensure we are using the correct project configuration. Here is a list with all the important aspects:
+Step 1: Before proceeding, make sure you are running this project in Release -> X86 mode. Additionally, ensure that you have the correct project configuration by considering the following important aspects:
 
 	• Ensure that your IDE is set to "Release -> x86" mode. (You can find this near the top of your IDE next to the 'Local Windows Debugger' button)
 	• Check and adjust the project properties as follows:
@@ -71,7 +71,7 @@ Step 1. We must be sure we are running this project in Release -> X86 | Also, we
 	• Step 10: In your "gui.cpp" file, include the logo header file using the appropriate path. For example, #include "../Logo/logo.h". (A single dot (".") refers to the current directory.
 	Two consecutive dots ("..") refer to the parent directory).
 
-Cool! Now your file should look somewhat similar to this (NOTE: I decreased the bytes by a lot, to make this REAMDE shorter).
+Excellent! Now your file should have a similar structure to the one shown below. Please note that I've significantly reduced the number of bytes for brevity.
 
 logo.h:
 ```c++
@@ -90,31 +90,38 @@ unsigned char eclipse_logo[2815] = {
 };
 ```
 
-Now we can start with the first line of code. We declare it near the top of the gui.cpp file. Please refer to the code, as it will make it simpler to understand!
+Now, let's begin with the first line of code, which should be declared near the top of the gui.cpp file. Referring to the code will help in better understanding its implementation.
 ```c++
 IDirect3DTexture9* eclipseLogo = nullptr;
 ```
 
-Next up we can define the size of our image. We use the parameters Width, followed by height.
+Next, we can define the size of our image by specifying the width and height parameters.
 ```c++
 ImVec2 image_size(655, 70);
 ```
 
-Now we are going to load the image bytes into a texture. We place this code in our ImGui Render function which we've created before. 
-(this is something you made yourself, you can take a look at the code if you want an example).
+Now, we will proceed to load the image bytes into a texture. We will place this code within our previously created ImGui Render function (make this yourself). If needed, you can refer to the code for an example on the Render Function.
 ```c++
 if (single_creation) {
-D3DXCreateTextureFromFileInMemoryEx(gui::device, &eclipse_logo, sizeof(eclipse_logo), 400, 50, D3DX_DEFAULT, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &eclipseLogo);
-single_creation = false;
+	D3DXCreateTextureFromFileInMemoryEx(gui::device, &eclipse_logo, sizeof(eclipse_logo), 400, 50, D3DX_DEFAULT, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &eclipseLogo);
+	single_creation = false;
 }
 ```
-The idea behind this if-statement is to avoid this function from creating the texture again over and over again. With this trick we set the single_creation boolean variable to false once it's done with creating the texture. The texture will no longer create itself again, so our menu will not lag/crash. You can see for yourself what happens if you remove this if statement ;) 
 
-Be sure to add the following line of code **outside** of the ImGui Render function:
+The purpose of this if-statement is to prevent the function from repeatedly creating the texture. By setting the single_creation boolean variable to false after creating the texture, we ensure that the texture is not created again, thereby preventing potential lag or crashes in our menu. You can observe the impact by removing this if-statement and observing the behavior ;D
+
+Please ensure that you place the following line of code **outside** the ImGui Render function:
 ```c++
 bool single_creation = true;
 ```
-And finally, we can render the image in our menu with the last line. We add this line to the ImGui Render function of course!
+
+Lastly, we can render the image in our menu by adding the following line to the ImGui Render function.
 ```c++
 ImGui::Image(eclipseLogo, image_size);
 ```
+
+I hope this guide has provided you with clarity on how to implement this system into your menu. I highly recommend reviewing the complete code in your IDE as it will facilitate understanding. If you encounter any difficulties, don't hesitate to reach out to me on Discord using the provided information. I'm available to assist you at any time.
+
+Enjoy your coding journey and happy coding!
+
+**estetik**
