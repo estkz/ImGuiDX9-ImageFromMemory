@@ -9,12 +9,12 @@
 
 		Step 1: Set up your project configuration:
 
-			• Ensure that your IDE is set to "Release -> x86" mode. (You can find this near the top of your IDE next to the 'Local Windows Debugger' button)
-			• Check and adjust the project properties as follows:
-			• Configuration Properties -> General -> C++ Language Standard: ISO C++20 Standard (/std:c++20).
-			• Configuration Properties -> Advanced -> Character Set: Use Multi-Byte Character Set.
-			• Linker -> Input -> Additional Dependencies: Add "d3d9.lib".
-			• Linker -> System -> SubSystem: Set to "Windows (/SUBSYSTEM:WINDOWS)".
+			â€¢ Ensure that your IDE is set to "Release -> x86" mode. (You can find this near the top of your IDE next to the 'Local Windows Debugger' button)
+			â€¢ Check and adjust the project properties as follows:
+			â€¢ Configuration Properties -> General -> C++ Language Standard: ISO C++20 Standard (/std:c++20).
+			â€¢ Configuration Properties -> Advanced -> Character Set: Use Multi-Byte Character Set.
+			â€¢ Linker -> Input -> Additional Dependencies: Add "d3d9.lib".
+			â€¢ Linker -> System -> SubSystem: Set to "Windows (/SUBSYSTEM:WINDOWS)".
 			
 			Step 2: If you encounter any issues, feel free to contact me on Discord: estkz or e9.
 
@@ -32,7 +32,7 @@
 					Two consecutive dots ("..") refer to the parent directory).
 
 			Step 10: Declare the following line of code near the top of the "gui.cpp" file:
-			IDirect3DTexture9* eclipseLogo = nullptr;|
+			IDirect3DTexture9* eclipseLogo = nullptr;
 
 			Step 11: Inside the render function, define the size of your image with the following code:
 			ImVec2 image_size(655, 70);
@@ -58,13 +58,13 @@
 
 			To resolve the include errors, follow these additional steps:
 
-				• Open the project properties.
-				• Go to "C/C++ -> General -> Additional Include Directories" and click the arrow on the right.
-				• Click "Edit" and add the following text: "$(DXSDK_DIR)include".
-				• Go to "VC++ Directories -> Library Directories," click the arrow again.
-				• Click "Edit" and add the following: "$(DXSDK_DIR)LIB\x86".
-				• Click "Apply" to save the changes.
-				• Once completed, the error should be resolved.
+				â€¢ Open the project properties.
+				â€¢ Go to "C/C++ -> General -> Additional Include Directories" and click the arrow on the right.
+				â€¢ Click "Edit" and add the following text: "$(DXSDK_DIR)include".
+				â€¢ Go to "VC++ Directories -> Library Directories," click the arrow again.
+				â€¢ Click "Edit" and add the following: "$(DXSDK_DIR)LIB\x86".
+				â€¢ Click "Apply" to save the changes.
+				â€¢ Once completed, the error should be resolved.
 
 			Now you should be able to load and display images in your ImGui menu. Feel free to reach out via Discord if you need further assistance!
 */
