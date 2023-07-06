@@ -15,6 +15,19 @@ A straightforward tutorial on how to load an image into your ImGui menu by utili
 ## 💎 Contact
 You can contact me on Discord via the following names: estkz or e9r
 
+## 🪲 Error Fixes
+If you encounter any issues or errors related to the includes on "d3dx9.h," make sure you have installed the DirectX SDK from https://www.microsoft.com/en-us/download/details.aspx?id=6812.
+
+	To resolve the include errors, follow these additional steps:
+
+		• Open the project properties.
+		• Go to "C/C++ -> General -> Additional Include Directories" and click the arrow on the right.
+		• Click "Edit" and add the following text: "$(DXSDK_DIR)include".
+		• Go to "VC++ Directories -> Library Directories," click the arrow again.
+		• Click "Edit" and add the following: "$(DXSDK_DIR)LIB\x86".
+		• Click "Apply" to save the changes.
+		• Once completed, the error should be resolved.
+
 ## 📃 Guide
 So, you want to learn how to load your image in imgui DirectX9. You're at the right place!
 
