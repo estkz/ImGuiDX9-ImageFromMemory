@@ -10,29 +10,29 @@
 		#include <d3d9.h>: This line includes the DirectX 9 header file, which is needed for working with DirectX 9 graphics.
 		namespace gui: The code is enclosed within the "gui" namespace, which is used to group related variables and functions together.
 
-			Various variable declarations:
+		[+] Various variable declarations:
 
-				• WIDTH and HEIGHT: Constants representing the window size.
-				• isRunning: A boolean flag indicating whether the program is running.
-				• window: A handle to the WinAPI window.
-				• windowClass: A structure representing the WinAPI window class.
-				• position: A structure representing the coordinates of the window position.
-				• d3d: A pointer to the IDirect3D9 interface, used for managing the DirectX 9 rendering subsystem.
-				• device: A pointer to the IDirect3DDevice9 interface, used for rendering graphics.
-				• presentParameters: A structure specifying the presentation parameters for creating the device.
+				â€¢ WIDTH and HEIGHT: Constants representing the window size.
+				â€¢ isRunning: A boolean flag indicating whether the program is running.
+				â€¢ window: A handle to the WinAPI window.
+				â€¢ windowClass: A structure representing the WinAPI window class.
+				â€¢ position: A structure representing the coordinates of the window position.
+				â€¢ d3d: A pointer to the IDirect3D9 interface, used for managing the DirectX 9 rendering subsystem.
+				â€¢ device: A pointer to the IDirect3DDevice9 interface, used for rendering graphics.
+				â€¢ presentParameters: A structure specifying the presentation parameters for creating the device.
 		
 		[+] Function declarations:
 
-				• CreateHWindow: Creates the WinAPI window.
-				• DestroyHWindow: Destroys the WinAPI window.
-				• CreateDevice: Creates the DirectX 9 device.
-				• ResetDevice: Resets the DirectX 9 device.
-				• DestroyDevice: Destroys the DirectX 9 device.
-				• CreateImGui: Initializes ImGui.
-				• DestroyImGui: Shuts down ImGui.
-				• BeginRender: Begins the ImGui rendering process.
-				• EndRender: Ends the ImGui rendering process.
-				• Render: Renders the ImGui interface.
+				â€¢ CreateHWindow: Creates the WinAPI window.
+				â€¢ DestroyHWindow: Destroys the WinAPI window.
+				â€¢ CreateDevice: Creates the DirectX 9 device.
+				â€¢ ResetDevice: Resets the DirectX 9 device.
+				â€¢ DestroyDevice: Destroys the DirectX 9 device.
+				â€¢ CreateImGui: Initializes ImGui.
+				â€¢ DestroyImGui: Shuts down ImGui.
+				â€¢ BeginRender: Begins the ImGui rendering process.
+				â€¢ EndRender: Ends the ImGui rendering process.
+				â€¢ Render: Renders the ImGui interface.
 
 */
 
