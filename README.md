@@ -5,12 +5,12 @@ This code simplifies the process of loading an image from bytes into a texture a
 A straightforward tutorial on how to load an image into your ImGui menu by utilizing the image's memory.
 
 ## 🌌 Setup
-[+] Clone the repo
-[+] Follow the guide in main.cpp
-[+] Understand the code.
-[+] Implement it in your menu if needed.
-[+] Build in Release | x86
-[+] Profit
+	[+] Clone the repo
+	[+] Follow the guide in main.cpp
+	[+] Understand the code.
+	[+] Implement it in your menu if needed.
+	[+] Build in Release | x86
+	[+] Profit
 
 ## 💎 Contact
 You can contact me on Discord via the following names: estkz or e9r
