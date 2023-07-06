@@ -60,16 +60,16 @@ Step 1. We must be sure we are running this project in Release -> X86 | Also, we
 	• Linker -> Input -> Additional Dependencies: Add "d3d9.lib".
 	• Linker -> System -> SubSystem: Set to "Windows (/SUBSYSTEM:WINDOWS)".
 
-• Step 2. Download and install HxD from the following link: https://mh-nexus.de/en/hxd/. 
-• Step 3. Open HxD and drag the picture you want to load into ImGui onto the HxD window. The hexadecimal bytes of the image will be displayed. 
-• Step 4. Step 3: Go to "File" -> "Export" and click the "C" button. Save the file. 
-• Step 5: Right-click the exported file, choose "Open With," and select "Notepad" (or "Edit" if available). 
-• Step 6: Copy the code starting from "unsigned char rawData[bytes] = { all the bytes };" (excluding the path to the picture). 
-• Step 7: Create a new header file called "logo.h" (refer to the provided "logo.h" in this project if you need an example). 
-• Step 8: Paste the copied bytes into the newly created "logo.h" file, making sure to keep the "#pragma once" directive. 
-• Step 9: Rename "RawData" to a name of your choice. Remember this name as we'll use it later. For example, let's use "eclipse_logo" in this example. 
-• Step 10: In your "gui.cpp" file, include the logo header file using the appropriate path. For example, #include "../Logo/logo.h". (A single dot (".") refers to the current directory.
-Two consecutive dots ("..") refer to the parent directory).
+	• Step 2. Download and install HxD from the following link: https://mh-nexus.de/en/hxd/. 
+	• Step 3. Open HxD and drag the picture you want to load into ImGui onto the HxD window. The hexadecimal bytes of the image will be displayed. 
+	• Step 4. Step 3: Go to "File" -> "Export" and click the "C" button. Save the file. 
+	• Step 5: Right-click the exported file, choose "Open With," and select "Notepad" (or "Edit" if available). 
+	• Step 6: Copy the code starting from "unsigned char rawData[bytes] = { all the bytes };" (excluding the path to the picture). 
+	• Step 7: Create a new header file called "logo.h" (refer to the provided "logo.h" in this project if you need an example). 
+	• Step 8: Paste the copied bytes into the newly created "logo.h" file, making sure to keep the "#pragma once" directive. 
+	• Step 9: Rename "RawData" to a name of your choice. Remember this name as we'll use it later. For example, let's use "eclipse_logo" in this example. 
+	• Step 10: In your "gui.cpp" file, include the logo header file using the appropriate path. For example, #include "../Logo/logo.h". (A single dot (".") refers to the current directory.
+	Two consecutive dots ("..") refer to the parent directory).
 
 Cool! Now your file should look somewhat similar to this (NOTE: I decreased the bytes by a lot, to make this REAMDE shorter).
 
