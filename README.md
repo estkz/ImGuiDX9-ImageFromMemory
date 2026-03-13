@@ -4,6 +4,8 @@ A modern, lightweight example showing how to **load image data directly from mem
 
 This project demonstrates the **modern approach** using the widely adopted `stb_image` library instead of deprecated DirectX helpers like `D3DXCreateTextureFromFileInMemory`.
 
+<img width="1044" height="608" alt="image" src="https://github.com/user-attachments/assets/448d613c-fe82-4bbc-8a44-f8bf7c177a19" />
+
 ---
 
 # 🌒 About
