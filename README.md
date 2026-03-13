@@ -1,140 +1,357 @@
-# 💻 ImGuiDX9-ImageFromMemory
-This code simplifies the process of loading an image from bytes into a texture and displaying your logo in ImGui. It provides a quick and efficient way to accomplish this task.
+# 💻 ImGuiDX9 – Image From Memory
 
-## 🌒 About
-A straightforward tutorial on how to load an image into your ImGui menu by utilizing the image's memory.
+A modern, lightweight example showing how to **load image data directly from memory into a DirectX9 texture for Dear ImGui**, without using the legacy DirectX SDK.
 
-## 🌌 Setup
-	[+] Clone the repo
-	[+] Follow the guide in main.cpp
-	[+] Understand the code.
-	[+] Implement it in your menu if needed.
-	[+] Build in Release | x86
-	[+] Profit
+This project demonstrates the **modern approach** using the widely adopted `stb_image` library instead of deprecated DirectX helpers like `D3DXCreateTextureFromFileInMemory`.
 
-## 💎 Contact
-You can contact me on Discord via the following names: estkz or e9r
+---
 
-## 🪲 Error Fixes
-If you encounter any issues or errors related to the includes on "d3dx9.h," make sure you have installed the DirectX SDK from https://www.microsoft.com/en-us/download/details.aspx?id=6812.
+# 🌒 About
 
-	To resolve the include errors, follow these additional steps:
+Older tutorials rely on:
 
-		• Open the project properties.
-		• Go to "C/C++ -> General -> Additional Include Directories" and click the arrow on the right.
-		• Click "Edit" and add the following text: "$(DXSDK_DIR)include".
-		• Go to "VC++ Directories -> Library Directories," click the arrow again.
-		• Click "Edit" and add the following: "$(DXSDK_DIR)LIB\x86".
-		• Click "Apply" to save the changes.
-		• Once completed, the error should be resolved.
-
-## 📃 Guide
-So, you want to learn how to load your image in imgui DirectX9. You're at the right place!
-
-Firstly I will give you all the code that is needed (excluding all the other functions):
-```c++
-
-#include "gui.h" // This is the array of bytes from your image.
-#include "../Logo/logo.h"
-
-#include "../imgui/imgui.h"
-#include "../imgui/imgui_impl_dx9.h"
-#include "../imgui/imgui_impl_win32.h"
-
-#include <d3dx9.h>
-#include <d3d9.h>
-#pragma comment (lib, "d3d9.lib")
-#pragma comment (lib, "d3dx9.lib")
-
-IDirect3DTexture9* eclipseLogo = nullptr;
-
-bool single_creation = true;
-
-// The following code must be included in your ImGui Render function:
-ImVec2 image_size(200, 75);
-
-if (single_creation) // This if-statement makes sure the Texture only gets created once. If you do not do this your program will lag or even crash!!!
-	{
-		D3DXCreateTextureFromFileInMemoryEx(gui::device, &eclipse_logo, sizeof(eclipse_logo), 400, 50, D3DX_DEFAULT, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &eclipseLogo);
-		single_creation = false;
-	}
-
-ImGui::Image(eclipseLogo, image_size);
+```
+D3DXCreateTextureFromFileInMemory
 ```
 
-Now, let's take a look at all the lines of code that we'll be implementing into our menu. But before that, let's open main.cpp!
+which requires the **deprecated Microsoft DirectX SDK**.
 
-Step 1: Before proceeding, make sure you are running this project in Release -> X86 mode. Additionally, ensure that you have the correct project configuration by considering the following important aspects:
+This repository demonstrates the **modern workflow**:
 
-	• Ensure that your IDE is set to "Release -> x86" mode. (You can find this near the top of your IDE next to the 'Local Windows Debugger' button)
-	• Check and adjust the project properties as follows:
-	• Configuration Properties -> General -> C++ Language Standard: ISO C++20 Standard (/std:c++20).
-	• Configuration Properties -> Advanced -> Character Set: Use Multi-Byte Character Set.
-	• Linker -> Input -> Additional Dependencies: Add "d3d9.lib".
-	• Linker -> System -> SubSystem: Set to "Windows (/SUBSYSTEM:WINDOWS)".
+1. **Decode image bytes** (PNG/JPG/etc.) using `stb_image`
+2. **Create a DirectX9 texture**
+3. **Manually upload pixels to GPU memory**
+4. **Convert RGBA → BGRA** to match DirectX9's expected format
 
-	• Step 2. Download and install HxD from the following link: https://mh-nexus.de/en/hxd/. 
-	• Step 3. Open HxD and drag the picture you want to load into ImGui onto the HxD window. The hexadecimal bytes of the image will be displayed. 
-	• Step 4. Step 3: Go to "File" -> "Export" and click the "C" button. Save the file. 
-	• Step 5: Right-click the exported file, choose "Open With," and select "Notepad" (or "Edit" if available). 
-	• Step 6: Copy the code starting from "unsigned char rawData[bytes] = { all the bytes };" (excluding the path to the picture). 
-	• Step 7: Create a new header file called "logo.h" (refer to the provided "logo.h" in this project if you need an example). 
-	• Step 8: Paste the copied bytes into the newly created "logo.h" file, making sure to keep the "#pragma once" directive. 
-	• Step 9: Rename "RawData" to a name of your choice. Remember this name as we'll use it later. For example, let's use "eclipse_logo" in this example. 
-	• Step 10: In your "gui.cpp" file, include the logo header file using the appropriate path. For example, #include "../Logo/logo.h". (A single dot (".") refers to the current directory.
-	Two consecutive dots ("..") refer to the parent directory).
+This approach is:
 
-Excellent! Now your file should have a similar structure to the one shown below. Please note that I've significantly reduced the number of bytes for brevity.
+• ✔ Portable (no legacy SDK required)  
+• ✔ Lightweight (single-header image library)  
+• ✔ Modern and maintainable  
 
-logo.h:
-```c++
+---
+
+# ⚙️ Requirements
+
+### IDE
+Visual Studio **2022 recommended**
+
+### Build Configuration
+
+```
+Release | x86
+```
+
+### Dependencies
+
+Included in the repository:
+
+- Dear ImGui
+- stb_image (header only)
+
+### DirectX
+
+Uses the **standard Windows SDK**
+
+No additional DirectX SDK installation required.
+
+---
+
+# 📁 Project Structure
+
+Example layout used in this repository:
+
+```
+project/
+│
+├─ imgui/
+├─ third_party/
+│   └─ stb/
+│
+├─ logo/
+│   └─ logo.h
+│
+├─ gui/
+│   ├─ gui.cpp
+│   └─ gui.h
+│
+└─ main.cpp
+```
+
+---
+
+# 📃 Data → Image Guide
+
+## 1. Convert an Image to C Bytes
+
+Use a hex editor such as **HxD** or an online tool like:
+
+https://hexed.it/
+
+### Using HxD
+
+1. Download HxD  
+https://mh-nexus.de/en/hxd/
+
+2. Open your image file
+
+3. Go to:
+
+```
+File → Export → C
+```
+
+4. Save the exported file
+
+5. Open the file in Notepad
+
+6. Copy the generated array
+
+Example:
+
+```cpp
+unsigned char rawData[12345] = { 0x89, 0x50, 0x4E, ... };
+```
+
+7. Create a header file:
+
+```
+logo.h
+```
+
+Example:
+
+```cpp
 #pragma once
 
-unsigned char eclipse_logo[2815] = {
-	0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
-	0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x01, 0x03, 0x00, 0x00, 0x00, 0xC2,
-	0x08, 0x03, 0x00, 0x00, 0x00, 0x7A, 0xCC, 0x57, 0x5C, 0x00, 0x00, 0x00,
-	0xDB, 0x50, 0x4C, 0x54, 0x45, 0xFF, 0xFF, 0xFF, 0x2A, 0x1E, 0x56, 0xFF,
-	0x95, 0x00, 0x25, 0x18, 0x53, 0x10, 0x00, 0x4A, 0xC2, 0xC0, 0xCC, 0x4B,
-	0x42, 0x6E, 0xBE, 0xBB, 0xC9, 0x2C, 0x20, 0x59, 0x26, 0x18, 0x57, 0x64,
-	0x5E, 0x82, 0x20, 0x08, 0x5C, 0x34, 0x26, 0x67, 0x2D, 0x1B, 0x65, 0x82,
-	0x7B, 0x9F, 0xA5, 0xA0, 0xBB, 0x30, 0x19, 0x6D, 0x3C, 0x2B, 0x75, 0x19,
-	0x01, 0x4D, 0x40, 0x2C, 0x7A, 0x44, 0x30, 0x80, 0xFF, 0x8D, 0x00, etc..
+unsigned char eclipse_logo[] = {
+    0x89, 0x50, 0x4E, ...
 };
 ```
 
-Now, let's begin with the first line of code, which should be declared near the top of the gui.cpp file. Referring to the code will help in better understanding its implementation.
-```c++
-IDirect3DTexture9* eclipseLogo = nullptr;
+---
+
+# 2. Include the Image Header
+
+Inside your source file:
+
+```cpp
+#include "../logo/logo.h"
 ```
 
-Next, we can define the size of our image by specifying the width and height parameters.
-```c++
-ImVec2 image_size(655, 70);
+Directory reference reminder:
+
+```
+.   = current directory
+..  = parent directory
 ```
 
-Now, we will proceed to load the image bytes into a texture. We will place this code within our previously created ImGui Render function (make this yourself). If needed, you can refer to the code for an example on the Render Function.
-```c++
-if (single_creation) {
-	D3DXCreateTextureFromFileInMemoryEx(gui::device, &eclipse_logo, sizeof(eclipse_logo), 400, 50, D3DX_DEFAULT, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &eclipseLogo);
-	single_creation = false;
+---
+
+# 3. Add the Texture Loader
+
+You must include the function responsible for converting image bytes into a DirectX9 texture.
+
+This function:
+
+1. Decodes PNG/JPG bytes using `stb_image`
+2. Creates a DirectX texture
+3. Converts RGBA pixels → BGRA
+4. Uploads the image to GPU memory
+
+Function signature:
+
+```cpp
+bool LoadTextureFromMemory(
+    IDirect3DDevice9* device,
+    const unsigned char* data,
+    int size,
+    IDirect3DTexture9** outTexture
+);
+```
+
+The full implementation is included in `gui.cpp`.
+
+---
+
+# 4. Initialize the Texture
+
+Load the texture **once during initialization**.
+
+Example (inside your ImGui setup):
+
+```cpp
+static IDirect3DTexture9* eclipseLogo = nullptr;
+
+LoadTextureFromMemory(
+    device,
+    eclipse_logo,
+    sizeof(eclipse_logo),
+    &eclipseLogo
+);
+```
+
+⚠ Important
+
+Do **NOT** load the texture every frame.
+
+Doing so will cause:
+
+- GPU memory leaks
+- Severe performance loss
+
+---
+
+# 5. Render the Image
+
+Use the ImGui image widget:
+
+```cpp
+ImVec2 size = ImVec2(200, 75);
+
+ImGui::Image(
+    (void*)eclipseLogo,
+    size
+);
+```
+
+Example with tint / alpha / scaling:
+
+```cpp
+static float logo_alpha = 1.0f;
+static float logo_tint[4] = {1.0f,1.0f,1.0f,1.0f};
+static float logo_scale = 1.0f;
+
+ImVec2 size = ImVec2(200 * logo_scale, 75 * logo_scale);
+
+ImGui::Image(
+    (void*)eclipseLogo,
+    size,
+    ImVec2(0,0),
+    ImVec2(1,1),
+    ImVec4(logo_tint[0],logo_tint[1],logo_tint[2],logo_alpha)
+);
+```
+
+---
+
+# 🎨 Why RGBA → BGRA Conversion Is Needed
+
+`stb_image` outputs pixels in:
+
+```
+RGBA
+```
+
+DirectX9 expects textures in:
+
+```
+BGRA
+```
+
+Therefore we manually swap the red and blue channels:
+
+```cpp
+pDestRow[x * 4 + 0] = pSrcRow[x * 4 + 2]; // Blue
+pDestRow[x * 4 + 1] = pSrcRow[x * 4 + 1]; // Green
+pDestRow[x * 4 + 2] = pSrcRow[x * 4 + 0]; // Red
+pDestRow[x * 4 + 3] = pSrcRow[x * 4 + 3]; // Alpha
+```
+
+Without this conversion your image will display with **incorrect colors**.
+
+---
+
+# 🧹 Cleanup
+
+Always release the texture during shutdown.
+
+Example:
+
+```cpp
+if (eclipseLogo)
+{
+    eclipseLogo->Release();
+    eclipseLogo = nullptr;
 }
 ```
 
-The purpose of this if-statement is to prevent the function from repeatedly creating the texture. By setting the single_creation boolean variable to false after creating the texture, we ensure that the texture is not created again, thereby preventing potential lag or crashes in our menu. You can observe the impact by removing this if-statement and observing the behavior ;D
+Failing to release textures will cause **GPU memory leaks**.
 
-Please ensure that you place the following line of code **outside** the ImGui Render function:
-```c++
-bool single_creation = true;
+---
+
+# 🖼 Supported Image Formats
+
+`stb_image` supports:
+
+- PNG
+- JPG
+- BMP
+- TGA
+- PSD
+- GIF
+- HDR
+
+Recommended maximum texture size:
+
+```
+4096 x 4096
 ```
 
-Lastly, we can render the image in our menu by adding the following line to the ImGui Render function.
-```c++
-ImGui::Image(eclipseLogo, image_size);
+(Depends on GPU capabilities)
+
+---
+
+# 🛠 Technical Features
+
+• No `d3dx9.h` dependency  
+• Uses modern Windows SDK only  
+• Header-only image decoding  
+• Direct GPU upload  
+• Simple demo UI for experimenting with image properties  
+
+---
+
+# 📚 Minimal Integration Example
+
+A minimal usage example:
+
+```cpp
+IDirect3DTexture9* logo = nullptr;
+
+LoadTextureFromMemory(device, logo_bytes, sizeof(logo_bytes), &logo);
+
+ImGui::Begin("Example");
+
+ImGui::Image((void*)logo, ImVec2(200,75));
+
+ImGui::End();
 ```
 
-I hope this guide has provided you with clarity on how to implement this system into your menu. I highly recommend reviewing the complete code in your IDE as it will facilitate understanding. If you encounter any difficulties, don't hesitate to reach out to me on Discord using the provided information. I'm available to assist you at any time.
+---
 
-Enjoy your coding journey and happy coding!
+# 💎 Contact
 
-**estetik**
+You can reach me on Discord:
+
+```
+estkz
+e9r
+```
+
+---
+
+# 📄 License
+
+This project uses:
+
+- Dear ImGui (MIT License)
+- stb_image (Public Domain / MIT)
+
+Refer to their respective repositories for license details.
+
+---
+
+I hope this guide has provided you with clarity on how to implement this system into your menu. I highly recommend reviewing the complete code in your IDE as it will help with understanding. If you encounter any difficulties, don't hesitate to reach out to me on Discord using the provided information. I'm available to assist you at any time.
+
+Happy coding 🚀

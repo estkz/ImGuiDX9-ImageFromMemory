@@ -42,7 +42,10 @@
     <ClInclude Include="menu\gui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Logo\logo.h">
+    <ClInclude Include="logo\logo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\stb\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

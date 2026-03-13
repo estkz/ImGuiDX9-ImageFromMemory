@@ -1,8 +1,6 @@
 #pragma once
 #include <d3d9.h>
 
-// Here you can find the gui namespace, feel free to take a look at all the functions!
-
 /*
 	Short breakdown of the functions:
 	
@@ -38,9 +36,8 @@
 
 namespace gui
 {
-	// Variables
-	constexpr int WIDTH = 500;
-	constexpr int HEIGHT = 300;
+	constexpr int WIDTH = 600;
+	constexpr int HEIGHT = 350;
 
 	inline bool isRunning = true;
 
@@ -53,7 +50,7 @@ namespace gui
 	inline LPDIRECT3DDEVICE9 device = nullptr;
 	inline D3DPRESENT_PARAMETERS presentParameters = { };
 
-	// Functions -> Expand in gui.cpp
+	// See gui.cpp
 	void CreateHWindow(const char* windowName) noexcept;
 	void DestroyHWindow() noexcept;
 
